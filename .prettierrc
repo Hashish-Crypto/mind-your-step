@@ -8,5 +8,6 @@
   "semi": false,
   "quoteProps": "as-needed",
   "bracketSpacing": true,
-  "arrowParens": "always"
+  "arrowParens": "always",
+  "printWidth": 120
 }
