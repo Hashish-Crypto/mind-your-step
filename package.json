@@ -10,5 +10,8 @@
   "repository": "https://github.com/Hashish-Crypto/MindYourStep.git",
   "author": "Leandro Acquati <leandroacquati@gmail.com>",
   "license": "MIT",
-  "description": "Quick start game from Cocos docs. This game tests the player's reaction ability, and chooses whether to jump one step or two steps according to traffic conditions."
+  "description": "Quick start game from Cocos docs. This game tests the player's reaction ability, and chooses whether to jump one step or two steps according to traffic conditions.",
+  "devDependencies": {
+    "prettier": "^2.5.1"
+  }
 }
