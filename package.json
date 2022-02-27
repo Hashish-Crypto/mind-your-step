@@ -1,5 +1,5 @@
 {
-  "name": "MindYourStep",
+  "name": "mind-your-step",
   "type": "3d",
   "uuid": "f0b97b1d-4ee6-438b-a658-f67c9a6555b8",
   "version": "3.4.1",
@@ -9,5 +9,6 @@
   "main": "index.js",
   "repository": "https://github.com/Hashish-Crypto/MindYourStep.git",
   "author": "Leandro Acquati <leandroacquati@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "description": "Quick start game from Cocos docs. This game tests the player's reaction ability, and chooses whether to jump one step or two steps according to traffic conditions."
 }
