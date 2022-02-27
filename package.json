@@ -5,5 +5,9 @@
   "version": "3.4.1",
   "creator": {
     "version": "3.4.1"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/Hashish-Crypto/MindYourStep.git",
+  "author": "Leandro Acquati <leandroacquati@gmail.com>",
+  "license": "MIT"
 }
