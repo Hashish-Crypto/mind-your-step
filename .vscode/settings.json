@@ -1,7 +1,17 @@
 {
-  "eslint.enable": true,
   "typescript.tsdk": "node_modules/typescript/lib",
+  "eslint.enable": true,
   "eslint.validate": ["javascript", "typescript"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "search.exclude": {
     "**/node_modules": true,
     "**/bower_components": true,
