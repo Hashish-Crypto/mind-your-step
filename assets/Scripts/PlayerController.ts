@@ -19,9 +19,8 @@ export class PlayerController extends Component {
   // [1]
   // dummy = ''
 
-  // [2]
-  // @property
-  // serializableDummy = 0
+  @property({ type: Animation })
+  public BodyAnim: Animation | null = null
 
   // for fake tween
   private _startJump: boolean = false
@@ -59,6 +58,14 @@ export class PlayerController extends Component {
     Vec3.add(this._targetPosition, this._currentPosition, new Vec3(this._jumpStep, 0, 0))
 
     this._isMoving = true
+
+    if (this.BodyAnim) {
+      if (step === 1) {
+        this.BodyAnim.play('oneStep')
+      } else if (step === 2) {
+        this.BodyAnim.play('twoStep')
+      }
+    }
   }
 
   onOnceJumpEnd() {
