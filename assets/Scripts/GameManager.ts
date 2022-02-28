@@ -1,4 +1,4 @@
-import { _decorator, Component, Vec3, Prefab, instantiate, Node, CCInteger } from 'cc'
+import { _decorator, Component, Vec3, Prefab, instantiate, Node, CCInteger, Label } from 'cc'
 import { PlayerController } from './PlayerController'
 
 const { ccclass, property } = _decorator
@@ -40,11 +40,15 @@ export class GameManager extends Component {
   @property({ type: Node })
   public startMenu: Node = null
 
+  @property({ type: Label })
+  public stepsLabel: Label | null = null
+
   private _road: number[] = []
   private _curState: GameState = GameState.GS_INIT
 
   start() {
     this.curState = GameState.GS_INIT
+    this.playerCtrl?.node.on('JumpEnd', this.onPlayerJumpEnd, this)
   }
 
   init() {
@@ -57,6 +61,8 @@ export class GameManager extends Component {
       this.playerCtrl.setInputActive(false)
       this.playerCtrl.node.setPosition(Vec3.ZERO)
     }
+
+    this.playerCtrl.reset()
   }
 
   set curState(value: GameState) {
@@ -67,6 +73,10 @@ export class GameManager extends Component {
       case GameState.GS_PLAYING:
         if (this.startMenu) {
           this.startMenu.active = false
+        }
+        if (this.stepsLabel) {
+          //  reset the number of steps to 0
+          this.stepsLabel.string = '0'
         }
         // Directly setting active will directly start monitoring
         // mouse events, and do a little delay processing
@@ -123,6 +133,23 @@ export class GameManager extends Component {
     }
 
     return block
+  }
+
+  onPlayerJumpEnd(moveIndex: number) {
+    this.stepsLabel.string = '' + moveIndex
+    this.checkResult(moveIndex)
+  }
+
+  checkResult(moveIndex: number) {
+    if (moveIndex <= this.roadLength) {
+      // Jump to the empty square
+      if (this._road[moveIndex] === BlockType.BT_NONE) {
+        this.curState = GameState.GS_INIT
+      }
+    } else {
+      // skipped the maximum length
+      this.curState = GameState.GS_INIT
+    }
   }
 
   // update (deltaTime: number) {

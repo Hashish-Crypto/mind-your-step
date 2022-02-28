@@ -32,6 +32,7 @@ export class PlayerController extends Component {
   private _deltaPosition: Vec3 = new Vec3(0, 0, 0)
   private _targetPosition: Vec3 = new Vec3()
   private _isMoving = false
+  private _curMoveIndex = 0
 
   start() {
     // input.on(Input.EventType.MOUSE_UP, this.onMouseUp, this)
@@ -74,10 +75,17 @@ export class PlayerController extends Component {
         this.BodyAnim.play('twoStep')
       }
     }
+
+    this._curMoveIndex += step
+  }
+
+  reset() {
+    this._curMoveIndex = 0
   }
 
   onOnceJumpEnd() {
     this._isMoving = false
+    this.node.emit('JumpEnd', this._curMoveIndex)
   }
 
   update(deltaTime: number) {
