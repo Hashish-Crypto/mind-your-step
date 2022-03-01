@@ -29,13 +29,13 @@ enum GameState {
 @ccclass('GameManager')
 export class GameManager extends Component {
   @property({ type: Prefab })
-  public cubePrfb: Prefab | null = null
+  public cubePrefab: Prefab | null = null
 
   @property({ type: CCInteger })
   public roadLength: Number = 50
 
   @property({ type: PlayerController })
-  public playerCtrl: PlayerController = null
+  public playerController: PlayerController = null
 
   @property({ type: Node })
   public startMenu: Node = null
@@ -44,11 +44,11 @@ export class GameManager extends Component {
   public stepsLabel: Label | null = null
 
   private _road: number[] = []
-  private _curState: GameState = GameState.GS_INIT
+  private _currentState: GameState = GameState.GS_INIT
 
   start() {
-    this.curState = GameState.GS_INIT
-    this.playerCtrl?.node.on('JumpEnd', this.onPlayerJumpEnd, this)
+    this.currentState = GameState.GS_INIT
+    this.playerController?.node.on('JumpEnd', this.onPlayerJumpEnd, this)
   }
 
   init() {
@@ -57,15 +57,15 @@ export class GameManager extends Component {
     }
 
     this.generateRoad()
-    if (this.playerCtrl) {
-      this.playerCtrl.setInputActive(false)
-      this.playerCtrl.node.setPosition(Vec3.ZERO)
+    if (this.playerController) {
+      this.playerController.setInputActive(false)
+      this.playerController.node.setPosition(Vec3.ZERO)
     }
 
-    this.playerCtrl.reset()
+    this.playerController.reset()
   }
 
-  set curState(value: GameState) {
+  set currentState(value: GameState) {
     switch (value) {
       case GameState.GS_INIT:
         this.init()
@@ -81,19 +81,19 @@ export class GameManager extends Component {
         // Directly setting active will directly start monitoring
         // mouse events, and do a little delay processing
         setTimeout(() => {
-          if (this.playerCtrl) {
-            this.playerCtrl.setInputActive(true)
+          if (this.playerController) {
+            this.playerController.setInputActive(true)
           }
         }, 0.1)
         break
       case GameState.GS_END:
         break
     }
-    this._curState = value
+    this._currentState = value
   }
 
   onStartButtonClicked() {
-    this.curState = GameState.GS_PLAYING
+    this.currentState = GameState.GS_PLAYING
   }
 
   generateRoad() {
@@ -121,14 +121,14 @@ export class GameManager extends Component {
   }
 
   spawnBlockByType(type: BlockType) {
-    if (!this.cubePrfb) {
+    if (!this.cubePrefab) {
       return null
     }
 
     let block: Node | null = null
     switch (type) {
       case BlockType.BT_STONE:
-        block = instantiate(this.cubePrfb)
+        block = instantiate(this.cubePrefab)
         break
     }
 
@@ -144,11 +144,11 @@ export class GameManager extends Component {
     if (moveIndex <= this.roadLength) {
       // Jump to the empty square
       if (this._road[moveIndex] === BlockType.BT_NONE) {
-        this.curState = GameState.GS_INIT
+        this.currentState = GameState.GS_INIT
       }
     } else {
       // skipped the maximum length
-      this.curState = GameState.GS_INIT
+      this.currentState = GameState.GS_INIT
     }
   }
 

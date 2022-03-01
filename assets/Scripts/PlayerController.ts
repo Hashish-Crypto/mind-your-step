@@ -35,7 +35,7 @@ export class PlayerController extends Component {
   private _deltaPosition: Vec3 = new Vec3(0, 0, 0)
   private _targetPosition: Vec3 = new Vec3()
   private _isMoving = false
-  private _curMoveIndex = 0
+  private _currentMoveIndex = 0
 
   start() {
     // input.on(Input.EventType.MOUSE_UP, this.onMouseUp, this)
@@ -86,11 +86,11 @@ export class PlayerController extends Component {
       }
     }
 
-    this._curMoveIndex += step
+    this._currentMoveIndex += step
   }
 
   reset() {
-    this._curMoveIndex = 0
+    this._currentMoveIndex = 0
   }
 
   onOnceJumpEnd() {
@@ -98,7 +98,7 @@ export class PlayerController extends Component {
     if (this.CocosAnim) {
       this.CocosAnim.play('cocos_anim_idle')
     }
-    this.node.emit('JumpEnd', this._curMoveIndex)
+    this.node.emit('JumpEnd', this._currentMoveIndex)
   }
 
   update(deltaTime: number) {

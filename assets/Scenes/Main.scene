@@ -517,12 +517,12 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "cubePrfb": {
+    "cubePrefab": {
       "__uuid__": "07f14b89-466a-47c1-9077-61fe9118127f",
       "__expectedType__": "cc.Prefab"
     },
     "roadLength": 200,
-    "playerCtrl": {
+    "playerController": {
       "__id__": 19
     },
     "startMenu": {
