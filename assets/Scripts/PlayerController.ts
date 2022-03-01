@@ -1,4 +1,4 @@
-import { _decorator, Component, Vec3, input, Input, EventMouse, Animation } from 'cc'
+import { _decorator, Component, Vec3, input, Input, EventMouse, Animation, SkeletalAnimation } from 'cc'
 
 const { ccclass, property } = _decorator
 
@@ -21,6 +21,9 @@ export class PlayerController extends Component {
 
   @property({ type: Animation })
   public BodyAnim: Animation | null = null
+
+  @property({ type: SkeletalAnimation })
+  public CocosAnim: SkeletalAnimation | null = null
 
   // for fake tween
   private _startJump: boolean = false
@@ -68,9 +71,16 @@ export class PlayerController extends Component {
 
     this._isMoving = true
 
+    if (this.CocosAnim) {
+      // The jumping animation takes a long time, here is accelerated playback
+      this.CocosAnim.getState('cocos_anim_jump').speed = 3.5
+      // Play jumping animation
+      this.CocosAnim.play('cocos_anim_jump')
+    }
+
     if (this.BodyAnim) {
       if (step === 1) {
-        this.BodyAnim.play('oneStep')
+        // this.BodyAnim.play('oneStep')
       } else if (step === 2) {
         this.BodyAnim.play('twoStep')
       }
@@ -85,6 +95,9 @@ export class PlayerController extends Component {
 
   onOnceJumpEnd() {
     this._isMoving = false
+    if (this.CocosAnim) {
+      this.CocosAnim.play('cocos_anim_idle')
+    }
     this.node.emit('JumpEnd', this._curMoveIndex)
   }
 
