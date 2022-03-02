@@ -5,6 +5,8 @@ A [Cocos Creator](https://www.cocos.com/en/creator) game made with [Typescript](
 Quick start game from Cocos docs. This game tests the player's reaction ability, and chooses whether to jump one step or
 two steps according to traffic conditions.
 
+Play the demo here: [acquati.itch.io/mind-your-step](https://acquati.itch.io/mind-your-step)
+
 ## Setup
 
 ### Prerequisites for development
